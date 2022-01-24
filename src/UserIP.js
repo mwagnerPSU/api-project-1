@@ -22,13 +22,14 @@ export class UserIP extends LitElement {
     // Java or other Object Oriented Programming Language
     // so for this one, we're storing a reference to the API endpoint
     // so that if it ever changed it would be easier to update
-    this.ipLookUp = 'https://ip-fast.com/api/ip/?format=json&location=False';
+    this.ipLookUp = 'https://ip-fast.com/api/ip/?format=json&location=True';
   }
 
   // properties that you wish to use as data in HTML, CSS, and the updated life-cycle
   static get properties() {
     return {
       ip: { type: String, reflect: true },
+      location: { type: String },
     };
   }
 
@@ -99,6 +100,7 @@ export class UserIP extends LitElement {
       })
       .then(data => {
         this.ip = data.ip;
+        this.location = data.city;
         return data;
       });
   }
@@ -138,7 +140,7 @@ export class UserIP extends LitElement {
   render() {
     return html` <ul>
       <li><strong class="ipaddress">IP address:</strong> ${this.ip}</li>
-      <li></li>
+      <li><strong>Location of above IP address:</strong> ${this.location}</li>
     </ul>`;
   }
 }
